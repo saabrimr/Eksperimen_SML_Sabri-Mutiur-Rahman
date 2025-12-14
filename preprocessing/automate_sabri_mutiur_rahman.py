@@ -1,23 +1,19 @@
 import os
 import pandas as pd
 
-def preprocess(input_file, output_file):
-    # Load data
+# Ambil root directory project
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+# Path dataset (AMAN untuk Windows & Linux)
+input_file = os.path.join(BASE_DIR, "dataset_raw", "data_balita.csv")
+output_file = os.path.join(
+    BASE_DIR, "preprocessing", "data_preprocessed.csv"
+)
+
+def preprocess():
     df = pd.read_csv(input_file)
-
-    # Ensure output directory exists
-    output_dir = os.path.dirname(output_file)
-    if output_dir and not os.path.exists(output_dir):
-        os.makedirs(output_dir)
-
-    # Save preprocessed data
     df.to_csv(output_file, index=False)
-    print(f"Data disimpan ke {output_file}")
-    return df
+    print("Preprocessing selesai")
 
 if __name__ == "__main__":
-    # Default paths (sesuaikan jika perlu)
-    input_file = "dataset_raw\data_balita.csv"
-    output_file = "preprocessing\data_preprocessed.csv"
-
-    preprocess(input_file, output_file)
+    preprocess()
